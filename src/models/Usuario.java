@@ -23,6 +23,15 @@ public class Usuario {
         return nombre.toUpperCase();
     }
 
+    public String getClave() {
+        // return "*".repeat(clave.length());
+        String asteriscos = "";
+        for (int i = 0; i < clave.length(); i++) {
+          asteriscos += "*";
+        }
+        return asteriscos;
+    }
+
     public String getSexo() {
         return ((sexo == 'M') ? "Mujer" : "Hombre");
     }
@@ -33,18 +42,16 @@ public class Usuario {
 
     public boolean setClave(String clave) {
         if (clave.length() < 6 && clave.length() >10) return false; // validamos la longitud
-        else{
-            if (clave.equals(clave.toUpperCase()) && clave.equals(clave.toLowerCase())) return false;
-            int contasteris = 0, contpunt = 0, contguion = 0, contplus = 0;
-            boolean claveValida = false;
-            for (int i = 0; i < clave.length(); i++) {
-                if (Character.isDigit(clave.charAt(i))) claveValida = true;
-            }
-            if (!claveValida) return false;
-            claveValida = false;
-            if (clave.contains('.')  || clave.contains('*') || clave.contains('+') || clave.contains('-')) claveValida = true;
-            if (!claveValida) return false;
+        if (clave.equals(clave.toUpperCase()) || clave.equals(clave.toLowerCase())) return false;
+        int contasteris = 0, contpunt = 0, contguion = 0, contplus = 0;
+        boolean claveValida = false;
+        for (int i = 0; i < clave.length(); i++) {
+            if (Character.isDigit(clave.charAt(i))) claveValida = true;
         }
+        if (!claveValida) return false;
+        claveValida = false;
+        if (clave.contains(".")  || clave.contains("*") || clave.contains("+") || clave.contains("-")) claveValida = true;
+        if (!claveValida) return false;
         this.clave = clave;
         return true;
     }
